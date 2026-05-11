@@ -2,12 +2,13 @@ import pytest
 from utils import Parsing, Input_definition, Input_prompt, Translator
 import json
 
+
 class TestParsing:
 
     def test_load_error(self):
         with pytest.raises(IsADirectoryError):
             Parsing.valid_json("data/input/")
-    
+
     def test_load_error_1(self):
         with pytest.raises(FileNotFoundError):
             Parsing.valid_json("data/input/test.json")
