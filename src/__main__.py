@@ -3,12 +3,17 @@ from utils import Parsing
 
 
 def main():
-    print("Hello from call!")
-    valid_key = {
-        "prompt",
-    }
-    print(Parsing.valid_data("data/input/function_calling_tests.json", valid_key))
-
+    try:
+        print("Hello from call!")
+        valid_key = {
+            "prompt",
+        }
+        print(Parsing.valid_data("data/input/", valid_key))
+        print("Hello")
+    except (FileNotFoundError, IsADirectoryError) as e:
+        print("===========================")
+        print(f"File not do not exist -> {e}")
+        print("===========================")
 
 if __name__ == "__main__":
     main()
