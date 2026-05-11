@@ -1,13 +1,11 @@
 import json
+from pydantic import BaseModel
+
 
 class Parsing():
 
     @staticmethod
-    def valid_data(file: str, valid_key: set) -> bool:
+    def valid_json(file: str) -> dict:
         with open(file, "r") as f:
             data = json.load(f)
-            for item in data:
-                for key in item.keys():
-                    if (key not in valid_key):
-                        return False
-        return True
+        return data
