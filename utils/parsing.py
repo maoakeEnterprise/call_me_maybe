@@ -3,12 +3,7 @@ import json
 class Parsing():
 
     @staticmethod
-    def valid_data(file: str) -> bool:
-
-        valid_key = {
-            "prompt"
-        }
-
+    def valid_data(file: str, valid_key: set) -> bool:
         with open(file, "r") as f:
             data = json.load(f)
             for item in data:
