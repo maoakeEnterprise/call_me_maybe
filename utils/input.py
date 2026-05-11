@@ -5,6 +5,7 @@ class Types_d(Enum):
     NUMBER = "number"
     STRING = "string"
     BOOL = "boolean"
+    INTERGER = "integer"
 
 
 class Input_prompt(BaseModel):
@@ -31,6 +32,7 @@ class Input_definition(BaseModel):
             Types_d.NUMBER.value,
             Types_d.STRING.value,
             Types_d.BOOL.value,
+            Types_d.INTERGER.value,
         ])
         return self
 
@@ -38,9 +40,17 @@ class Input_definition(BaseModel):
         for k, v in self.parameters.items():
             for key in v.keys():
                 if key != "type":
-                    raise KeyError("FKKIGNG MORRON")
+                    raise KeyError(f"In the definition {self.name} "
+                                   " the key is not in the good format and should"
+                                   " be 'type'")
+        for key in self.returns.keys():
+            if key != "type":
+                raise KeyError(f"In the definition {self.name} "
+                                " the key is not in the good format and should"
+                                " be 'type'")
 
     def verif_type(self, tab_list: list[str]):
         for k, v in self.parameters.items():
             if v["type"] not in tab_list:
-                raise ValueError("Its not an authorized type")
+                raise ValueError("The type value is forbidden in the definition "
+                                 f"{self.name}")

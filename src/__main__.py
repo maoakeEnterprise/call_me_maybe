@@ -1,5 +1,6 @@
 # from llm_sdk import Small_LLM_Model
 from utils import Parsing, Translator
+import json
 
 
 def main():
@@ -14,6 +15,18 @@ def main():
     except (FileNotFoundError, IsADirectoryError) as e:
         print("===========================")
         print(f"File not do not exist -> {e}")
+        print("===========================")
+    except json.decoder.JSONDecodeError as e:
+        print("===========WRONG====FORMAT")
+        print(f"Message Error : {e}")
+        print("==========================")
+    except ValueError as e:
+        print("======VALUE=ERROR==========")
+        print(f"Message error {e}")
+        print("===========================")
+    except KeyError as e:
+        print("========KEY=ERROR==========")
+        print(f"Message error: {e}")
         print("===========================")
 
 
