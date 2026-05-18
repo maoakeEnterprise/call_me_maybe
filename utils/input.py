@@ -16,6 +16,9 @@ class Input_prompt(BaseModel):
         print(f"{self.prompt["prompt"]}")
         print("==========================")
 
+    def get_prompt(self) -> str:
+        return self.prompt
+
 
 class Input_definition(BaseModel):
     name: str
@@ -49,8 +52,29 @@ class Input_definition(BaseModel):
                                 " the key is not in the good format and should"
                                 " be 'type'")
 
-    def verif_type(self, tab_list: list[str]):
+    def verif_type(self, tab_list: list[str]) -> None:
         for k, v in self.parameters.items():
             if v["type"] not in tab_list:
                 raise ValueError("The type value is forbidden in the definition "
                                  f"{self.name}")
+
+    def get_definitions_format_str(self) -> str:
+        data = "{"
+        data += (f"name : {self.name}, ")
+        data += (f"description {self.description}, ")
+        data += (f"parameters: {str(self.parameters)}, ")
+        data += (f"returns : {str(self.returns)}, ")
+        data += "}\n"
+        return data
+
+    def get_name(self) -> str:
+        return self.name
+
+    def get_description(self) -> str:
+        return self.description
+
+    def get_parameters(self) -> dict[str, dict[str, str]]:
+        return self.parameters
+
+    def get_returns(self) -> dict[str, str]:
+        return self.returns

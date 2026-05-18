@@ -1,17 +1,18 @@
-# from llm_sdk import Small_LLM_Model
+from llm_sdk import Small_LLM_Model
 from utils import Parsing, Translator
 import json
+import numpy as np
 
 
 def main():
     try:
         print("Hello from call!")
-        data1 = Parsing.valid_json("data/input/function_calling_tests.json")
-        data2 = Parsing.valid_json("data/input/functions_definition.json")
-        poop = Translator()
-        poop.fill_data_list(data2)
-        poop.fill_prompt_list(data1)
-        print("Hello")
+        prompt_data = Parsing.valid_json("data/input/function_calling_tests.json")
+        functions = Parsing.valid_json("data/input/functions_definition.json")
+        data = Translator()
+        data.fill_definitions_list(functions)
+        data.fill_prompt_list(prompt_data)
+        data.run_all(functions)
     except (FileNotFoundError, IsADirectoryError) as e:
         print("===========================")
         print(f"File not do not exist -> {e}")
