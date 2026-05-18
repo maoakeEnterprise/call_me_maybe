@@ -1,6 +1,6 @@
 SRC = src/__main__.py
 
-PARSING = utils/parsing.py
+UTILS = utils/parsing.py utils/input.py utils/translator.py
 
 TESTS = tests/test_parsing.py
 
@@ -14,8 +14,11 @@ test_parsing:
 	uv run pytest tests/test_parsing.py
 
 norming:
-	watch flake8 $(SRC) $(PARSING) $(TESTS)
+	watch flake8 $(SRC) $(UTILS) $(TESTS)
+
+norming-mypy:
+	watch uv run mypy $(SRC) $(UTILS) $(TESTS) --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
 
 lint:
-	uv run flake8 . --exclude=.venv --exclude=llm_sdk
-	uv run mypy .  --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
+# 	uv run flake8 . --exclude=./.venv,./llm_sdk
+	uv run mypy . --exclude=./.venv,./llm_sdk --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
